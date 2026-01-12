@@ -2,6 +2,7 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flasgger import Swagger
+
 # import db
 # import data models to create data base tables
 # os modelos de dados sao as entidades em forma de classes que sao tabelas no banco de dados
@@ -11,6 +12,7 @@ from flasgger import Swagger
 # from models.theme import Theme
 
 # create the application
+
 
 def create_app():
     """
@@ -67,7 +69,7 @@ def create_app():
                 {
                     "name": "Analysis",
                     "description": "analyses research report and generates critical and technical analysis",
-                },   
+                },
                 {
                     "name": "Draft",
                     "description": "Operações relacionadas a usuários",
@@ -77,14 +79,14 @@ def create_app():
                     "description": "Operações relacionadas a comentários",
                 },
                 {
-                    "name": "Publish",
+                    "name": "Write",
                     "description": "output the article",
                 },
 
             ]
         }
     }
-    
+
     # Inicializar Swagger
     Swagger(app, config=swagger_config, template=swagger_template)
 
@@ -102,15 +104,15 @@ def create_app():
 
     # Database Initialization
    #  with app.app_context():
-     #   db.create_all()
+    #   db.create_all()
 
     # Route Registration (Blueprints)
     # from routes.product_bp import product_bp
     # from routes.user_bp import user_bp
     # from routes.comment_bp import comment_bp
 
-    @app.route('/')
-    def route():
+    @app.route('/generate-article')
+    def generate_article():
         return 'Article Generator Online'
 
     return app

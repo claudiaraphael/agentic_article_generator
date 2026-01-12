@@ -1,8 +1,10 @@
-# article
+# article model
 #  id
+#  theme
 #  title
-#  content
-#  author_id
-#  template
+#  research_report
+#  analysis report
+#  seo_keyword_list
 #  draft
-#  published
+#  edition
+#  output
