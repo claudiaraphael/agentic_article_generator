@@ -13,7 +13,7 @@ from models import db
 # first draft - agent 3
 # article - agent 4
 
-
+theme_bp = Blueprint('theme', __name__)
 
 @theme_bp.route('/theme', methods=['POST'])
 @swag_from({
