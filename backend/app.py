@@ -14,6 +14,8 @@ from models.theme import Theme
 from schemas.theme import ThemeCreate
 from schemas.article import ArticleSchema
 
+from routes.article import article_bp
+
 # create the application
 
 
@@ -85,6 +87,10 @@ def create_app():
                     "name": "Write",
                     "description": "output the article",
                 },
+                {
+                    "name": "Article",
+                    "description": "Operations related to articles"
+                },
 
             ]
         }
@@ -113,6 +119,12 @@ def create_app():
     # from routes.product_bp import product_bp
     # from routes.user_bp import user_bp
     # from routes.comment_bp import comment_bp
+    from routes.theme import theme_bp
+    from routes.article import article_bp
+
+    app.register_blueprint(theme_bp, url_prefix='/api')
+    app.register_blueprint(article_bp, url_prefix='/api')
+
 
     @app.route('/generate-article')
     def generate_article():
