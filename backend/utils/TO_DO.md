@@ -4,9 +4,9 @@
 
 2. Documentação - check
 
-3. criar base de dados
-    . modelos de dados com SQLAlchemy
-    . criar instancia da base de dados
+3. criar base de dados - check
+    . modelos de dados com SQLAlchemy - check
+    . criar instancia da base de dados - check
 
 4. configurar modelo(s) de llm
     . gemini 1.5 flash

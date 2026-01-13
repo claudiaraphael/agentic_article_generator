@@ -1,15 +1,18 @@
 # Application Factory
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flasgger import Swagger
+from pydantic import ValidationError
 
-# import db
-# import data models to create data base tables
-# os modelos de dados sao as entidades em forma de classes que sao tabelas no banco de dados
-# from models.article import Article
-# from models.drafts import Drafts
-# from models.templates import Templates
-# from models.theme import Theme
+from models import db
+from models.article import Article
+from models.drafts import Draft
+from models.templates import Template
+from models.theme import Theme
+
+# Import Schemas
+from schemas.theme import ThemeCreate
+from schemas.article import ArticleSchema
 
 # create the application
 
@@ -90,8 +93,8 @@ def create_app():
     # Inicializar Swagger
     Swagger(app, config=swagger_config, template=swagger_template)
 
-    # db.init_app(app) initializes the SQLAlchemy database with the Flask app
-    # db.init_app(app)
+    # Initialize DB
+    db.init_app(app)
 
     # CORS Configuration: connect front end to back end
     CORS(app, resources={
@@ -102,9 +105,9 @@ def create_app():
         }
     })
 
-    # Database Initialization
-   #  with app.app_context():
-    #   db.create_all()
+    # Create database tables
+    with app.app_context():
+        db.create_all()
 
     # Route Registration (Blueprints)
     # from routes.product_bp import product_bp

@@ -1,9 +1,12 @@
-# theme model
-# id
-# name
-# description
-# research report - agent 1
-# analysis report - agent 2
-# first draft - agent 3
-# editor notes - agent 4
-# article - agent 5
+from models import db
+
+class Theme(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    
+    # Relationship to Article
+    articles = db.relationship('Article', backref='theme', lazy=True)
+
+    def __repr__(self):
+        return f"<Theme {self.name}>"

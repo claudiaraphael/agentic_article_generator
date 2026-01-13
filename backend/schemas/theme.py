@@ -1,8 +1,18 @@
-# theme
-# id
-# name
-# description
-# research report - agent 1
-# analysis report - agent 2
-# first draft - agent 3
-# article - agent 4
+from pydantic import BaseModel
+from typing import Optional
+
+# Shared properties
+class ThemeBase(BaseModel):
+    name: str
+    description: Optional[str] = None
+
+# Properties to receive on item creation
+class ThemeCreate(ThemeBase):
+    pass
+
+# Properties to return to client
+class ThemeSchema(ThemeBase):
+    id: int
+
+    class Config:
+        from_attributes = True
