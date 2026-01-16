@@ -125,10 +125,32 @@ def create_app():
     app.register_blueprint(theme_bp, url_prefix='/api')
     app.register_blueprint(article_bp, url_prefix='/api')
 
+    @app.route('/research-theme')
+    def generate_article(theme: str):
+        return theme
+    
+    generate_article('mock-theme')
 
-    @app.route('/generate-article')
-    def generate_article():
-        return 'Article Generator Online'
+    
+    # CRUD
+    # CREATE
+    @app.route('/articles', methods=['POST'])
+    def create_article():
+        try:
+            data = request.get_json()
+            article_schema = ArticleSchema()
+            article_data = article_schema.load(data)
+
+            new_article = Article(**article_data)
+            db.session.add(new_article)
+            db.session.commit()
+
+            return article_schema.jsonify(new_article), 201
+        except ValidationError as ve:
+            return jsonify({"error": ve.errors()}), 400
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
 
     return app
 
