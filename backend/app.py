@@ -16,9 +16,9 @@ from schemas.article import ArticleSchema
 
 from routes.article import article_bp
 
+from main import generate_linkedin_article
+
 # create the application
-
-
 def create_app():
     """
     Creates and configures the Flask application, integrating OpenAPI 3.0.
@@ -125,11 +125,35 @@ def create_app():
     app.register_blueprint(theme_bp, url_prefix='/api')
     app.register_blueprint(article_bp, url_prefix='/api')
 
-    @app.route('/research-theme')
-    def generate_article(theme: str):
-        return theme
-    
-    generate_article('mock-theme')
+    @app.route('/api/generate-article', methods=['POST'])
+    def create_article_endpoint():
+        """
+        Generate a LinkedIn article.
+        ---
+        tags:
+          - Write
+        parameters:
+          - name: body
+            in: body
+            required: true
+            schema:
+              type: object
+              properties:
+                theme:
+                  type: string
+                provider:
+                  type: string
+                  enum: [gemini, huggingface]
+        responses:
+          200:
+            description: Article generated successfully
+        """
+        data = request.json
+        theme = data.get('theme', 'AI Technology')
+        provider = data.get('provider', 'gemini')
+        
+        content = generate_linkedin_article(theme, provider)
+        return jsonify({"article": content})
 
     
     

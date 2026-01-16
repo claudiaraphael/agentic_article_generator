@@ -1,28 +1,44 @@
 import os
 from dotenv import load_dotenv
-from transformers import pipeline
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_huggingface import HuggingFaceEndpoint
+from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 
-load_dotenv("HUGGING_FACE_API_KEY")
-
-
-gemini_agent = pipeline(
-    "text-generation",
-    model="gemini-1.5-flash",
-    api_key=os.getenv("GEMINI_API_KEY"),
-    device=0  # Use GPU (0 refers to the first GPU)
-)
-
-output = gemini_agent("How to get started with langchain?")
-print(output)
-
-# research agent using Gemini API
+load_dotenv()
 
 
-class researcher_agent():
-    def __init__(self):
-        self.api_key = os.getenv("GEMINI_API_KEY")
-        self.model_name = "gemini-1.5 flash"
+def get_llm(provider="gemini"):
+    if provider == "gemini":
+        return ChatGoogleGenerativeAI(
+            model="gemini-1.5-flash-latest",
+            google_api_key=os.getenv("GEMINI_API_KEY")
+        )
+    else:
+        # Using a free Hugging Face model (Mistral) via API
+        return HuggingFaceEndpoint(
+            repo_id="mistralai/Mistral-7B-Instruct-v0.2",
+            huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN")
+        )
 
-    def research_theme(self, prompt: str, theme) -> str:
-        # Placeholder for actual API call to Gemini model
-        return f"Generated text for prompt: {prompt}"
+
+def generate_linkedin_article(topic, provider="gemini"):
+    llm = get_llm(provider)
+
+    template = """
+    You are a professional LinkedIn Content Creator.
+    Write a high-quality, SEO-optimized article about: {topic}
+    
+    Structure:
+    - Catchy Hook
+    - 3 Main Points
+    - Conclusion with a Call to Action
+    - 5 relevant hashtags
+    """
+
+    prompt = PromptTemplate.from_template(template)
+
+    # This is a simple LangChain Chain (LCEL)
+    chain = prompt | llm | StrOutputParser()
+
+    return chain.invoke({"topic": topic})
