@@ -2,10 +2,10 @@ from models import db
 
 class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255), nullable=True)
+    title = db.Column(db.String(255), nullable=False)
     research_report = db.Column(db.Text, nullable=True)
     analysis_report = db.Column(db.Text, nullable=True)
-    seo_keyword_list = db.Column(db.JSON, nullable=True)
+    seo_keyword_list = db.Column(db.JSON, nullable=True) # will involve research step
     draft = db.Column(db.Text, nullable=True)
     edition = db.Column(db.Text, nullable=True)
     output = db.Column(db.Text, nullable=True)

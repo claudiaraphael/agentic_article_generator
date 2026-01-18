@@ -1,3 +1,6 @@
+# Placeholder prompts for LLM agents
+
+
 """
 Prompt templates for Research Report, Analysis Report, and LinkedIn Post generation.
 
