@@ -1,6 +1,6 @@
 # Agentic Article Generator with AI
 
-This project is an agentic workflow designed to deliver SEO optimized articles for linkedin on any topic.
+This project is an agentic workflow designed to deliver SEO optimized articles on any topic.
 
 # Stack
 
@@ -8,7 +8,7 @@ It was built with Langchain, using Hugging Face to access models locally.
 
 ## Models
 
-I also experimented using Gemini 1.5 Flash
+I'm using Gemini 1.5 Flash and setting up Hugging Face models.
 
 ## Backend, Frontend and Docs
 
