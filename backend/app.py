@@ -14,7 +14,7 @@ from models.theme import Theme
 from schemas.theme import ThemeCreate
 from schemas.article import ArticleSchema
 
-from routes.article import article_bp
+from backend.routes.article_bp import article_bp
 
 from main import generate_linkedin_article
 
@@ -116,14 +116,14 @@ def create_app():
         db.create_all()
 
     # Route Registration (Blueprints)
-    # from routes.product_bp import product_bp
-    # from routes.user_bp import user_bp
-    # from routes.comment_bp import comment_bp
-    from routes.theme import theme_bp
-    from routes.article import article_bp
+    # from backend.routes.user_bp import user_bp
+    # from backend.routes.templates_bp import templates_bp
+    # from backend.routes.drafts_bp import drafts_bp
+    from backend.routes.theme_bp import theme_bp
+    from backend.routes.article_bp import article_bp
 
-    app.register_blueprint(theme_bp, url_prefix='/api')
     app.register_blueprint(article_bp, url_prefix='/api')
+    app.register_blueprint(theme_bp, url_prefix='/api')
 
     @app.route('/api/generate-article', methods=['POST'])
     def create_article_endpoint():

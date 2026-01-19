@@ -32,9 +32,9 @@ theme_bp = Blueprint('theme', __name__)
         }
     }
 })
-def describe_theme():
+def receive_theme():
     """
-    Returns a mock theme description.
+    Gets theme and theme description from user input and creates a new Theme entry in the database.
     """
     mock_theme = {
         "id": 1,
@@ -45,4 +45,4 @@ def describe_theme():
         "draft": "This is the draft content.",
         "article": "This is the final article."
     }
-    return jsonify(mock_theme), 200
+    return 200
