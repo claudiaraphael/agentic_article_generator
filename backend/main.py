@@ -42,3 +42,12 @@ def generate_linkedin_article(topic, provider="gemini"):
     chain = prompt | llm | StrOutputParser()
 
     return chain.invoke({"topic": topic})
+
+
+
+# aqui eu baixo a llm, baixo o tokenizador, faço o fine tuning e salvo o modelo ajustado
+# e testo o modelo ajustado
+if __name__ == "__main__":
+    topic = "The Future of AI in Healthcare"
+    article = generate_linkedin_article(topic, provider="gemini")
+    print(article)

@@ -21,7 +21,7 @@ theme_bp = Blueprint('theme', __name__)
     'summary': 'Receives a theme from the user input.',
     'responses': {
         '201': {
-            'description': 'Anew theme.',
+            'description': 'A new theme.',
             'content': {
                 'application/json': {
                     'schema': {
@@ -36,11 +36,19 @@ def receive_theme():
     """
     Gets theme and theme description from user input and creates a new Theme entry in the database.
     """
+
+
+
+
+
+
+
     mock_theme = {
         "id": 1,
         "name": "Mock Theme",
         "description": "This is a mock theme for testing purposes.",
         "research_report": "This is the research report.",
+        "seo_keyword_list": "json list of keywords",
         "analysis_report": "This is the analysis report.",
         "draft": "This is the draft content.",
         "article": "This is the final article."

@@ -44,3 +44,5 @@ def article_template():
         }
     }
     return jsonify(mock_template), 200
+
+
